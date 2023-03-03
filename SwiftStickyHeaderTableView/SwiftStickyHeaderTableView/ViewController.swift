@@ -199,7 +199,15 @@ class ViewController: UIViewController {
                 if endAnchor.row + 1 == tableView(tableView, numberOfRowsInSection: endAnchor.section) {
                     lastCell.setSeperatorToZero() // set the last cell seperator with zero to make it look like it has reached to the end of a grouped table view
                 }
-            } // if offset < 0
+            }else {
+                // fix: when scroll faster, last cell frame not correct
+//                // stickyTableView.reloadData()
+                if let cellHeight = heightDict[stickyReference[stickyReference.count - 1]] {
+                    lastCell.frame.origin.y = stickyTableViewHeight - cellHeight
+                }
+            }
+                
+                // if offset < 0
         } // if there is more than 1 sticky table view cell
     }
 
